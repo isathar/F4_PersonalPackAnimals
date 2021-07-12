@@ -9,6 +9,10 @@ https://bethesda.net/en/mods/fallout4/mod-detail/4224028
 
 -------------------------------------------------------------------------------------------------------
 
+The final version of the older, simpler *Personal Pack Brahmin* can also be downloaded from the releases tab.
+
+-------------------------------------------------------------------------------------------------------
+
 ## Installation
 
 - Download from the releases tab or bethesda.net, extract the esp and ba2 files to Fallout4\\Data\\
