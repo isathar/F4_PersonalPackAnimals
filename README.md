@@ -4,8 +4,9 @@ A WIP Fallout 4 Mod. Adds an alternate follower system for pack animals.
 
 -------------------------------------------------------------------------------------------------------
 
-Also available on Bethesda.net (PC only for now):
-https://bethesda.net/en/mods/fallout4/mod-detail/4224028
+Also available on Bethesda.net:
+- PC: https://bethesda.net/en/mods/fallout4/mod-detail/4224028
+- XB1: https://bethesda.net/en/mods/fallout4/mod-detail/4224522
 
 -------------------------------------------------------------------------------------------------------
 
