@@ -54,12 +54,9 @@ function AssignActorCustom(WorkshopNPCScript newActor)
 				endIf
 				tempScript.ClearDialogueTarget()
 			else
-				debug.notification("no animal ref at " + i)
 				i += 1
 			endIf	
 		endWhile
-	else
-		debug.notification("no quest script")
 	endIf
 	
 	utility.wait(2.0)

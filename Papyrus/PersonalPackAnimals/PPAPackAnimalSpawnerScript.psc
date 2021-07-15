@@ -44,8 +44,6 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 						endIf
 						i += 1
 					endWhile
-				else
-					debug.notification("no workshop resource objects")
 				endIf
 				
 				if !bFound
@@ -67,8 +65,6 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 							endIf
 							i += 1
 						endWhile
-					else
-						debug.notification("no workshop actors")
 					endIf
 				endIf
 				
@@ -88,11 +84,7 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 							endIf
 						endIf
 					endIf
-				else
-					debug.notification("No workshop animal")
 				endIf
-			else
-				debug.notification("no workshop")
 			endIf
 		else
 			PersonalPackAnimals:PPAPackAnimalManagerQuestScript tempScript = PersonalPackAnimals:PPAPackAnimalManagerQuestScript.GetScript()

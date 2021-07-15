@@ -1,0 +1,71 @@
+1.03:
+	- removed debug function calls, replaced some with messages
+	- recompiled all the scripts in Release mode
+	- XB1 release
+
+1.02:
+	- saved the plugin with the current CK version, repackaged everything.
+
+1.01:
+	Fixes:
+	- the leveling system should now actually do something
+	- renamed and moved used armor slots to match community standards
+	- new slots are '41 - [A] Torso' for packs, '46 - Headband' for implants, and '50 - Neck' for collars
+	- default animal races' morph + armor race settings now carry over to pack animal races - for a future update
+	- increased idle chatter min + max times for pack animal races
+	- (testing) minor tweak to AI packages as an attempted fix for pack animals disappearing in some instances
+	- pack mirelurks should allow interaction now (woops)
+	- fixed the dog pack addon's skinning
+	- tracking should work more consistently now
+	Gameplay Tweaks:
+	- increased capture chances for all animals (all sources)
+	- capture chance is now influenced by Animal Friend, Wasteland Whisperer, and Luck (maximum +22%)
+	- removed XP reward for killing pack animals (maybe...?)
+	- pack dogs can no longer open doors
+	- pack animals now use the standard follower command interface
+	Misc:
+	- converted most debug text to message format - still a few more left
+	- added crafting menu display objects for pack animals
+	- base work for vicious dogs and FEV hounds for a future update
+	- base work for Far Harbor + Nuka World DLC support
+	- the tracking quest is back to being listed as a side quest instead of misc objectives
+	- improved compatibility with game start by not starting the manager quest until an animal trainer is built
+
+1.00:
+	completely rebuilt the mod with the creation kit
+	
+0.9:
+	- increased pack brahmin speed
+	- configuration is now handled by a holotape
+	- pack animal aggression can now be configured
+	- added the option to make pack animals essential
+	- pack animals are now protected/essential when spawned while the option is enabled
+	- lowered script update time to every 30 minutes game time (from an hour) to work around pathing issues
+	- added cheat 'equipment' for carry weight and speed
+	- (probably) fixed settlers randomly attacking your pack animals
+	- added the option to track pack animals when they die
+	- cleaned up + optimized scripts (somewhat)
+	- preparations to allow default game animals to be managed by the mod
+
+0.62:
+	- fixed uninstall script stalling until pack animals are deleted.
+	- fixed uninstall/reset procedure to properly clear tracked pack animals and reset the count variable
+	- fixed brahmin health being set to 5.0 when arriving at settlements they were sent to (facepalm)
+	- edited dead cleanup to allow for more than one body to be marked for delete per hour
+	- pack brahmin sandboxing behavior should now be identical to default workshop brahmin behavior
+	
+0.61:
+	fixed reversed Wait on Player Enter Interior option
+
+0.6:
+	- removed broken default/alternate follow AI
+	- added a toggle to allow pack animals to follow the player into buildings
+	- added "(player name)'s " to pack animal names
+	- tracking targets now display the target's name in preparation for additional animal types in a future release
+	- fixed packs not being properly removed from the interaction menu
+	- fixed most instances of pack animals getting stuck while travelling
+	- replaced most of the scripted debug text with message forms
+
+0.5:
+	initial release
+

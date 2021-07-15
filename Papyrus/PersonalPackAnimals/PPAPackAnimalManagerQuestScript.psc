@@ -201,6 +201,19 @@ Group ErrorMessages
 	
 EndGroup
 
+Group DebugMessages
+	Message Property				pDebugCountActive				auto Const mandatory
+	Message Property				pDebugCountDead					auto Const mandatory
+	Message Property				pDebugCountIdle					auto Const mandatory
+	Message Property				pDebugCountTracked				auto Const mandatory
+	Message Property				pDebugCountLured				auto Const mandatory
+	Message Property				pDebugCountGuards				auto Const mandatory
+	Message Property				pDebugCountTrappers				auto Const mandatory
+	Message Property				pDebugCountGuardQueue			auto Const mandatory
+	Message Property				pDebugCountTrapperQueue			auto Const mandatory
+	Message Property				pDebugCountInstituteQueue		auto Const mandatory
+EndGroup
+
 
 Message Property 					pModInstalledMessage 			auto Const mandatory
 {mod installation message/prompt}
@@ -374,10 +387,10 @@ Function AddToProductionQueue(int iOrderType, int iAnimalType, float fProdTime, 
 	
 	if iOrderType == 0
 		ProductionQueue_Trappers.Add(newProd)
-		debug.notification("new trapper queue count: " + ProductionQueue_Trappers.length)
+		pDebugCountTrapperQueue.Show(ProductionQueue_Trappers.length)
 	else
 		ProductionQueue_Institute.Add(newProd)
-		debug.notification("new institute queue count: " + ProductionQueue_Institute.length)
+		pDebugCountInstituteQueue.Show(ProductionQueue_Institute.length)
 	endIf
 	
 EndFunction
@@ -396,7 +409,7 @@ Function ProductionTick()
 				pOrderFailedMsg_Trapper.Show()
 			endIf
 			ProductionQueue_Trappers.Remove(0)
-			debug.notification("new queue count: " + ProductionQueue_Trappers.length)
+			pDebugCountTrapperQueue.Show(ProductionQueue_Trappers.length)
 		endIf
 	endIf
 	;/institute/;
@@ -405,7 +418,7 @@ Function ProductionTick()
 			pOrderSuccessMsg_Institute.Show()
 			CreateAnimalFromData(ProductionQueue_Institute[0].iProdType, Utility.RandomInt(0,1), Utility.RandomInt(0, (pMaxSkinsPerType[ProductionQueue_Trappers[0].iProdType] - 1)), Game.GetPlayer() as ObjectReference)
 			ProductionQueue_Institute.Remove(0)
-			debug.notification("new queue count: " + ProductionQueue_Trappers.length)
+			pDebugCountInstituteQueue.Show(ProductionQueue_Institute.length)
 		endIf
 	endIf
 EndFunction
@@ -556,7 +569,7 @@ Function AddPackAnimal(ObjectReference tempRef)
 	int tempCount = pActivePackAnimalsRC.GetCount()
 	pCurNumPackAnimals.SetValue(tempCount as float)
 	self.UpdateCurrentInstanceGlobal(pCurNumPackAnimals)
-	debug.notification("active count: " + pActivePackAnimalsRC.GetCount())
+	pDebugCountActive.Show(pActivePackAnimalsRC.GetCount())
 	
 EndFunction
 
@@ -577,7 +590,7 @@ Function RemovePackAnimal(ObjectReference tempRef, bool bDelete = false)
 	int tempCount = pActivePackAnimalsRC.GetCount()
 	pCurNumPackAnimals.SetValue(tempCount as float)
 	self.UpdateCurrentInstanceGlobal(pCurNumPackAnimals)
-	debug.notification("active count: " + tempCount)
+	pDebugCountActive.Show(tempCount)
 	
 	ObjectReference guardRef = tempRef.GetLinkedRef(pGuardLinkKW)
 	if guardRef as bool
@@ -650,7 +663,7 @@ Function AddDeadPackAnimal(ObjectReference tempRef)
 		endIf
 	endIf
 	
-	debug.notification("dead count: " + pDeadPackAnimalsRC.GetCount())
+	pDebugCountDead.Show(pDeadPackAnimalsRC.GetCount())
 EndFunction
 
 Function RemoveDeadPackAnimal(ObjectReference tempRef)
@@ -666,7 +679,7 @@ Function RemoveDeadPackAnimal(ObjectReference tempRef)
 			SetObjectiveDisplayed(iObjective_TrackDead, False, True)
 		endIf
 	endIf
-	debug.notification("dead count: " + pDeadPackAnimalsRC.GetCount())
+	pDebugCountDead.Show(pDeadPackAnimalsRC.GetCount())
 EndFunction
 
 int Function GetAnimalCount_Dead()
@@ -709,7 +722,7 @@ Function AddToTrackedActive(Actor tempRef)
 	endIf
 	
 	int tempCount = pTrackedPackAnimalsRC.GetCount()
-	debug.notification("tracked count: " + pTrackedPackAnimalsRC.GetCount())
+	pDebugCountTracked.Show(pTrackedPackAnimalsRC.GetCount())
 EndFunction
 
 Function RemoveFromTrackedActive(Actor tempRef)
@@ -723,7 +736,7 @@ Function RemoveFromTrackedActive(Actor tempRef)
 	endIf
 	
 	int tempCount = pTrackedPackAnimalsRC.GetCount()
-	debug.notification("tracked count: " + pTrackedPackAnimalsRC.GetCount())
+	pDebugCountTracked.Show(pTrackedPackAnimalsRC.GetCount())
 EndFunction
 
 int Function GetAnimalCount_Tracked()
@@ -736,14 +749,14 @@ Function AddToTrackedIdle(Actor tempRef)
 	if pIdlePackAnimalsRC.Find(tempRef) < 0
 		pIdlePackAnimalsRC.AddRef(tempRef)
 	endIf
-	debug.notification("idle count: " + pIdlePackAnimalsRC.GetCount())
+	pDebugCountIdle.Show(pIdlePackAnimalsRC.GetCount())
 EndFunction
 
 Function RemoveFromTrackedIdle(Actor tempRef)
 	if pIdlePackAnimalsRC.Find(tempRef) > -1
 		pIdlePackAnimalsRC.RemoveRef(tempRef)
 	endIf
-	debug.notification("idle count: " + pIdlePackAnimalsRC.GetCount())
+	pDebugCountIdle.Show(pIdlePackAnimalsRC.GetCount())
 EndFunction
 
 int Function GetAnimalCount_Idle()
@@ -951,14 +964,14 @@ Function AssignTrapper(ObjectReference newTrapper)
 	if pTrapperNPCsRC.Find(newTrapper) < 0
 		pTrapperNPCsRC.AddRef(newTrapper)
 	endIf
-	debug.notification("trapper count: " + pTrapperNPCsRC.GetCount())
+	pDebugCountTrappers.Show(pTrapperNPCsRC.GetCount())
 EndFunction
 
 Function UnassignTrapper(ObjectReference oldTrapper)
 	if pTrapperNPCsRC.Find(oldTrapper) > -1
 		pTrapperNPCsRC.RemoveRef(oldTrapper)
 	endIf
-	debug.notification("trapper count: " + pTrapperNPCsRC.GetCount())
+	pDebugCountTrappers.Show(pTrapperNPCsRC.GetCount())
 EndFunction
 
 int Function GetTrapperAliasCount()
@@ -985,14 +998,14 @@ Function AssignPackAnimalGuard(ObjectReference tempGuard)
 	if pGuardNPCsRC.Find(tempGuard) < 0
 		pGuardNPCsRC.AddRef(tempGuard)
 	endIf
-	debug.notification("guard count: " + pGuardNPCsRC.GetCount())
+	pDebugCountGuards.Show(pGuardNPCsRC.GetCount())
 EndFunction
 
 Function UnassignAnimalGuard(ObjectReference tempGuard)
 	if pGuardNPCsRC.Find(tempGuard) > -1
 		pGuardNPCsRC.RemoveRef(tempGuard)
 	endIf
-	debug.notification("guard count: " + pGuardNPCsRC.GetCount())
+	pDebugCountGuards.Show(pGuardNPCsRC.GetCount())
 EndFunction
 
 int Function GetAnimalGuardCount()
@@ -1037,7 +1050,7 @@ Function AddLuredAnimals(ObjectReference lureRef, float fLureChance, int iMaxLur
 			i += 1
 		endWhile
 	endIf
-	debug.notification("lured count: " + pLuredAnimals.GetCount())
+	pDebugCountLured.Show(pLuredAnimals.GetCount())
 EndFunction
 
 Function ClearLuredAnimals()

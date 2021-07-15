@@ -6,6 +6,7 @@ float Property 					nCaptureChanceMod = 	1.0 	auto const
 {multiplier applied to base capture/tame chance}
 FormList Property 				pPackAnimalRaces 				auto Const mandatory
 {main animal factions supported for capturing}
+Message Property pFailedMessage auto Const mandatory
 
 
 Event OnEffectStart(Actor akTarget, Actor akCaster)
@@ -15,7 +16,6 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 	
 	if bCapture
 		if tempIndex > -1
-			debug.notification("tranq effect fired")
 			PersonalPackAnimals:PPAPackAnimalManagerQuestScript tempScript = PersonalPackAnimals:PPAPackAnimalManagerQuestScript.GetScript()
 			if tempScript as bool
 				if tempScript.TryToTameAnimal(aktarget, tempIndex, nCaptureChanceMod)
@@ -27,9 +27,9 @@ Event OnEffectStart(Actor akTarget, Actor akCaster)
 				endIf
 			endIf
 		else
-			debug.notification("not a compatible animal")
+			pFailedMessage.Show()
 		endIf
 	else
-		debug.notification("cannot capture workshop animals")
+		pFailedMessage.Show()
 	endIf
 EndEvent

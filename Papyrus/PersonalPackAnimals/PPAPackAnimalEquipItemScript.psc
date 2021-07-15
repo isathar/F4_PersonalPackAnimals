@@ -24,6 +24,8 @@ Group ModStats
 	{keyword to check if actor is a pack animal}
 EndGroup
 
+Message Property pFailedMessage auto Const mandatory
+
 
 
 Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldContainer)
@@ -44,7 +46,7 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 						endIf
 					endIf
 				else
-					debug.notification("wrong animal type")
+					pFailedMessage.Show()
 				endIf
 			endIf
 		else
@@ -58,7 +60,7 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 								animalActor.AttachMod(pNullMod)
 							endIf
 						else
-							debug.notification("wrong animal type")
+							pFailedMessage.Show()
 						endIf
 					endIf
 				endIf

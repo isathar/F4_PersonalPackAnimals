@@ -12,6 +12,7 @@ Group SpawnedAnimalBase
 EndGroup
 
 Message Property pPickerMessage auto Const mandatory
+Message Property pFailedMessage auto Const mandatory
 
 WorkshopParentScript Property 	WorkshopParent 				auto Const mandatory
 {workshop link}
@@ -46,24 +47,10 @@ Event OnContainerChanged(ObjectReference akNewContainer, ObjectReference akOldCo
 							i += 1
 						endIf
 					endWhile
-					
-					if bShowDebug
-						string sTempIndices = "Count: " + iCount[0] + ", Index: "
-						i = 1
-						while i <= iCount[0]
-							if i > 1
-								sTempIndices = sTempIndices + ", " + iCount[i]
-							else
-								sTempIndices = sTempIndices + iCount[i]
-							endIf
-							i += 1
-						endWhile
-						debug.notification(sTempIndices)
-					endIf
 				endIf
 			endIf
 		else
-			debug.notification("missing " + sWSAnimalSource)
+			pFailedMessage.Show()
 		endIf
 	endIf
 	akNewContainer.RemoveItem(self.GetBaseObject(), 1, true)

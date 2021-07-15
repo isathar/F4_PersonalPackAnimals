@@ -10,6 +10,7 @@ Group PackAnimalStats
 	FormList Property 			pPossibleSkins					auto Const mandatory
 	{list of possible skin items for this animal}
 	
+	
 EndGroup
 
 Group PackAnimalFood
@@ -24,6 +25,12 @@ Group PackAnimalFood
 	float property 				fTurnOnMasterChance = 	8.0		auto Const
 	{chance increase per hour of becoming aggressive when not fed}
 EndGroup
+
+Message Property pMsgFollowNear auto const mandatory
+Message Property pMsgFollowFar auto const mandatory
+Message Property pMsgNoPack auto const mandatory
+Message Property pMsgStillHungry auto const mandatory
+Message Property pMsgStuffed auto const mandatory
 
 PersonalPackanimals:PPAPackAnimalManagerQuestScript Property pManagerQuest auto Const mandatory
 {link to pack animal manager quest}
@@ -108,7 +115,7 @@ Event OnInit()
 	RegisterForCustomEvent(pManagerQuest, "PackAnimalTickEvent")
 	RegisterForCustomEvent(pManagerQuest, "UpgradePackCapacityEvent")
 	
-	;debug.notification("Pack animal initialized")
+	
 EndEvent
 
 ;/add inventory filter/;
@@ -447,10 +454,10 @@ Function ToggleFollowDistance()
 	ActorValue tempVal = Game.GetCommonProperties().FollowerDistance
 	if GetValue(tempVal) > 0.0
 		SetValue(tempVal, 0.0)
-		debug.notification("near")
+		pMsgFollowNear.Show()
 	else
 		SetValue(tempVal, 1.0)
-		debug.notification("far")
+		pMsgFollowFar.Show()
 	endIf
 EndFunction
 
@@ -469,7 +476,7 @@ Function OpenPackInventory(int menuVar)
 			if PackContainer_Storage.GetCurCapacity() > 0
 				PackContainer_Storage.Activate(Game.GetPlayer())
 			else
-				debug.notification("no pack of this type")
+				pMsgNoPack.Show()
 			endIf
 		endIf
 	elseif menuVar == 1
@@ -477,7 +484,7 @@ Function OpenPackInventory(int menuVar)
 			if PackContainer_Ammo.GetCurCapacity() > 0
 				PackContainer_Ammo.Activate(Game.GetPlayer())
 			else
-				debug.notification("no pack of this type")
+				pMsgNoPack.Show()
 			endIf
 		endIf
 	elseif menuVar == 2
@@ -485,7 +492,7 @@ Function OpenPackInventory(int menuVar)
 			if PackContainer_Delivery.GetCurCapacity() > 0
 				PackContainer_Delivery.Activate(Game.GetPlayer())
 			else
-				debug.notification("no pack of this type")
+				pMsgNoPack.Show()
 			endIf
 		endIf
 	endIf
@@ -517,9 +524,9 @@ Function FeedPackAnimal(int iFoodType = 0)
 	endIf
 	fNextFeedingTime = fCurTime + (fFoodVal * fHourMultiplier)
 	if fCurTime - fNextFeedingTime >= fFeedingInterval
-		debug.notification("Your pack animal is still hungry")
+		pMsgStillHungry.Show()
 	else
-		debug.notification("Your pack animal is full")
+		pMsgStuffed.Show()
 	endIf
 EndFunction
 
